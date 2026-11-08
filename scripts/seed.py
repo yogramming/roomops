@@ -22,9 +22,7 @@ def seed_database():
     with app.app_context():
         for room_data in SEED_ROOMS:
             existing_room = db.session.execute(
-                select(Room).where(
-                    Room.room_number == room_data["room_number"]
-                )
+                select(Room).where(Room.room_number == room_data["room_number"])
             ).scalar_one_or_none()
 
             if existing_room is None:
@@ -33,9 +31,7 @@ def seed_database():
         db.session.flush()
 
         existing_reservation = db.session.execute(
-            select(Reservation).where(
-                Reservation.reference == "RSV-SEED-0001"
-            )
+            select(Reservation).where(Reservation.reference == "RSV-SEED-0001")
         ).scalar_one_or_none()
 
         room = db.session.execute(
