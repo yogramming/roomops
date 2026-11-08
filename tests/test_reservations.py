@@ -114,3 +114,39 @@ def test_create_reservation_rejects_non_object_json(client):
 
     assert response.status_code == 400
     assert response.json["error"] == "validation_error"
+
+
+def test_get_reservation_success(client, app):
+    with app.app_context():
+        room = seed_room()
+
+        reservation = Reservation(
+            reference="RSV-RETRIEVE-001",
+            room_id=room.id,
+            check_in=date(2030, 7, 10),
+            check_out=date(2030, 7, 13),
+            status="CONFIRMED",
+        )
+
+        db.session.add(reservation)
+        db.session.commit()
+
+    response = client.get("/api/v1/reservations/RSV-RETRIEVE-001")
+
+    assert response.status_code == 200
+
+    result = response.json["reservation"]
+
+    assert result["reference"] == "RSV-RETRIEVE-001"
+    assert result["room_number"] == "101"
+    assert result["room_type"] == "deluxe"
+    assert result["check_in"] == "2030-07-10"
+    assert result["check_out"] == "2030-07-13"
+    assert result["status"] == "CONFIRMED"
+
+
+def test_get_reservation_not_found(client):
+    response = client.get("/api/v1/reservations/RSV-DOES-NOT-EXIST")
+
+    assert response.status_code == 404
+    assert response.json["error"] == "reservation_not_found"
