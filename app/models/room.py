@@ -6,25 +6,10 @@ class Room(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    room_number = db.Column(
-        db.String(20),
-        unique=True,
-        nullable=False
-    )
+    room_number = db.Column(db.String(20), unique=True, nullable=False)
 
-    room_type = db.Column(
-        db.String(50),
-        nullable=False,
-        index=True
-    )
+    room_type = db.Column(db.String(50), nullable=False, index=True)
 
-    is_active = db.Column(
-        db.Boolean,
-        nullable=False,
-        default=True
-    )
+    is_active = db.Column(db.Boolean, nullable=False, default=True)
 
-    reservations = db.relationship(
-        "Reservation",
-        back_populates="room"
-    )
+    reservations = db.relationship("Reservation", back_populates="room")

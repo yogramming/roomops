@@ -15,6 +15,6 @@ def create_app(config_class=Config):
 
     app.register_blueprint(health_bp)
 
-    from app.models import Room, Reservation
+    from app import models as _models
 
     return app
