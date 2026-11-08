@@ -1,0 +1,9 @@
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+psycopg[binary]
+python-dotenv
+gunicorn
+pytest
+pytest-cov
+ruff
