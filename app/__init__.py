@@ -1,8 +1,10 @@
+import logging
 from importlib import import_module
 
 from flask import Flask
 
 from app.config import Config
+from app.errors import register_error_handlers
 from app.extensions import db, migrate
 
 
@@ -30,5 +32,8 @@ def create_app(config_class=Config):
         reservations_bp,
         url_prefix="/api/v1/reservations",
     )
+    register_error_handlers(app)
+    log_level = app.config.get("LOG_LEVE", "INFO")
+    app.logger.setLevel(getattr(logging, log_level, logging.INFO))
 
     return app

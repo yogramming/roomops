@@ -8,6 +8,8 @@ load_dotenv()
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY", "development-only-key")
 
+    LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
+
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
         "postgresql+psycopg://roomops:change_me@localhost:5433/roomops",
