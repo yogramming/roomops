@@ -80,7 +80,7 @@ pipeline {
             steps {
                 sh '''
                     .ci-venv/bin/flask --app 'app:create_app()' db upgrade
-                    .ci-venv/bin/pytest -v
+                    .ci-venv/bin/python -m pytest -v
                 '''
             }
         }
