@@ -23,6 +23,9 @@ RUN python -m pip install \
 # Stage 2: Runtime
 # --------------------------------------------------
 FROM python:3.14-slim-bookworm AS runtime
+RUN python -m pip install --no-cache-dir --upgrade \
+      pip \
+      setuptools
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \

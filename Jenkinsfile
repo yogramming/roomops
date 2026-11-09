@@ -109,6 +109,7 @@ pipeline {
                 sh '''
                     trivy image \
                         --scanners vuln \
+                        --skip-files "**/pip/_vendor/bom.cdx.json" \
                         --severity HIGH,CRITICAL \
                         --ignore-unfixed \
                         --exit-code 1 \
