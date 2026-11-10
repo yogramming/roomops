@@ -31,6 +31,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PATH="/usr/local/bin:$PATH"
 
+ENV PROMETHEUS_MULTIPROC_DIR=/tmp/roomops-prometheus
+
 WORKDIR /app
 
 # Create an unprivileged application user.
@@ -39,6 +41,9 @@ RUN groupadd --system --gid 10001 roomops \
        --gid roomops \
        --home-dir /app \
        --no-create-home roomops
+
+RUN mkdir -p /tmp/roomops-prometheus \
+    && chown 10001:10001 /tmp/roomops-prometheus
 
 # Copy only installed runtime dependencies.
 COPY --from=builder /install /usr/local

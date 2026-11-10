@@ -1,0 +1,47 @@
+replicas: 1
+
+automountServiceAccountToken: false
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+
+persistence:
+  type: pvc
+  enabled: true
+  size: 1Gi
+  accessModes:
+    - ReadWriteOnce
+
+startupProbe:
+  httpGet:
+    path: /api/health
+    port: grafana
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 60
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+admin:
+  existingSecret: grafana-admin
+  userKey: admin-user
+  passwordKey: admin-password
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://roomops-prometheus-server.monitoring.svc.cluster.local
+        isDefault: true
+        editable: false

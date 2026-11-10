@@ -29,7 +29,8 @@ def create_reservation():
 
     required_fields = ("room_number", "check_in", "check_out")
 
-    missing_fields = [field for field in required_fields if not data.get(field)]
+    missing_fields = [
+        field for field in required_fields if not data.get(field)]
 
     if missing_fields:
         return jsonify(

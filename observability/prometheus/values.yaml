@@ -1,0 +1,47 @@
+alertmanager:
+  enabled: false
+
+kube-state-metrics:
+  enabled: false
+
+prometheus-node-exporter:
+  enabled: false
+
+prometheus-pushgateway:
+  enabled: false
+
+server:
+  replicaCount: 1
+
+  global:
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    evaluation_interval: 30s
+
+  retention: 7d
+
+  persistentVolume:
+    enabled: true
+    size: 2Gi
+    accessModes:
+      - ReadWriteOnce
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 250m
+      memory: 512Mi
+
+  service:
+    enabled: true
+    type: ClusterIP
+    servicePort: 80
+
+extraScrapeConfigs: |
+  - job_name: "roomops-api"
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - "roomops-api.roomops.svc.cluster.local:8000"
