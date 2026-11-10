@@ -1,0 +1,3 @@
+NAME                                                      READY   STATUS    RESTARTS   AGE     IP           NODE          NOMINATED NODE   READINESS GATES
+envoy-gateway-666cb7f75f-2sxjn                            1/1     Running   0          25m     10.244.2.6   lab-worker2   <none>           <none>
+envoy-roomops-roomops-gateway-58b4a76c-7fcfcf6bd7-dx4tw   2/2     Running   0          4m57s   10.244.1.4   lab-worker    <none>           <none>

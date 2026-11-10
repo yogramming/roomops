@@ -1,0 +1,69 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"gateway.networking.k8s.io/v1","kind":"Gateway","metadata":{"annotations":{},"name":"roomops-gateway","namespace":"roomops"},"spec":{"gatewayClassName":"eg","listeners":[{"allowedRoutes":{"namespaces":{"from":"Same"}},"hostname":"roomops.local","name":"https","port":443,"protocol":"HTTPS","tls":{"certificateRefs":[{"kind":"Secret","name":"roomops-tls"}],"mode":"Terminate"}}]}}
+  creationTimestamp: "2026-11-10T12:05:33Z"
+  generation: 1
+  name: roomops-gateway
+  namespace: roomops
+  resourceVersion: "1026222"
+  uid: 0626b0b9-ed2d-41b1-b88e-a5744890a5be
+spec:
+  gatewayClassName: eg
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    hostname: roomops.local
+    name: https
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: roomops-tls
+      mode: Terminate
+status:
+  conditions:
+  - lastTransitionTime: "2026-11-10T12:06:04Z"
+    message: The Gateway has been scheduled by Envoy Gateway
+    observedGeneration: 1
+    reason: Accepted
+    status: "True"
+    type: Accepted
+  - lastTransitionTime: "2026-11-10T12:06:04Z"
+    message: No addresses have been assigned to the Gateway
+    observedGeneration: 1
+    reason: AddressNotAssigned
+    status: "False"
+    type: Programmed
+  listeners:
+  - attachedRoutes: 1
+    conditions:
+    - lastTransitionTime: "2026-11-10T12:06:04Z"
+      message: Sending translated listener configuration to the data plane
+      observedGeneration: 1
+      reason: Programmed
+      status: "True"
+      type: Programmed
+    - lastTransitionTime: "2026-11-10T12:06:04Z"
+      message: Listener has been successfully translated
+      observedGeneration: 1
+      reason: Accepted
+      status: "True"
+      type: Accepted
+    - lastTransitionTime: "2026-11-10T12:06:04Z"
+      message: Listener references have been resolved
+      observedGeneration: 1
+      reason: ResolvedRefs
+      status: "True"
+      type: ResolvedRefs
+    name: https
+    supportedKinds:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+    - group: gateway.networking.k8s.io
+      kind: GRPCRoute
