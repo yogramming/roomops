@@ -118,7 +118,40 @@ pipeline {
                 '''
             }
         }
-    }
+        stage('Publish to Docker Hub') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'DOCKERHUB_USER',
+                        passwordVariable: 'DOCKERHUB_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        set +x
+
+                        export DOCKER_CONFIG=$(mktemp -d)
+                        trap 'docker logout >/dev/null 2>&1 || true; rm -rf "$DOCKER_CONFIG"' EXIT
+
+                        IMAGE_NAME="$DOCKERHUB_USER/roomops"
+
+                        printf '%s' "$DOCKERHUB_TOKEN" | \
+                            docker login \
+                                --username "$DOCKERHUB_USER" \
+                                --password-stdin
+
+                        docker tag "roomops:${IMAGE_TAG}" "${IMAGE_NAME}:${IMAGE_TAG}"
+                        docker tag "roomops:${IMAGE_TAG}" "${IMAGE_NAME}:latest"
+
+                        docker push "${IMAGE_NAME}:${IMAGE_TAG}"
+                        docker push "${IMAGE_NAME}:latest"
+
+                        echo "Successfully published ${IMAGE_NAME}:${IMAGE_TAG}"
+                        echo "Successfully published ${IMAGE_NAME}:latest"
+                    '''
+                }
+            }
+        }    }
 
     post {
         always {
