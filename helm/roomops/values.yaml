@@ -1,0 +1,49 @@
+replicaCount: 1
+
+image:
+  repository: yogramming/roomops
+  tag: fea7ecd396aa
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+app:
+  logLevel: INFO
+  environment: production
+
+secrets:
+  existingSecret: roomops-secrets
+
+postgres:
+  image:
+    repository: postgres
+    tag: "17.6-alpine"
+  database: roomops
+  username: roomops
+  storage:
+    size: 2Gi
+    storageClass: standard
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+postgresResources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+api:
+  enabled: false
+
+migration:
+  enabled: false

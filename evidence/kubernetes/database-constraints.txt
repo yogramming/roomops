@@ -1,0 +1,5 @@
+              conname              
+-----------------------------------
+ no_overlapping_confirmed_bookings
+(1 row)
+

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: roomops
+description: RoomOps reservation API and PostgreSQL deployment
+type: application
+version: 0.1.0
+appVersion: "fea7ecd396aa"

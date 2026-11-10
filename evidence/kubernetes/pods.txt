@@ -1,0 +1,3 @@
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE          NOMINATED NODE   READINESS GATES
+roomops-api-5949dc5c65-kj8s9   1/1     Running   0          88m   10.244.1.3   lab-worker    <none>           <none>
+roomops-postgres-0             1/1     Running   0          95m   10.244.2.3   lab-worker2   <none>           <none>
