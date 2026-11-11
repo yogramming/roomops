@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: yogramming/roomops
-  tag: fea7ecd396aa
+  tag: e401158e7cfb
   pullPolicy: IfNotPresent
 
 service:
@@ -43,7 +43,7 @@ postgresResources:
     memory: 512Mi
 
 api:
-  enabled: false
+  enabled: true
 
 migration:
   enabled: false
