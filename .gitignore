@@ -17,6 +17,10 @@ htmlcov/
 *.dump
 *.sql
 
+# PostgreSQL backup artifacts
+backups/postgres/*.dump
+backups/postgres/*.tmp
+
 # Editors
 .vscode/
 .idea/
