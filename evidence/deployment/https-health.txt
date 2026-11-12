@@ -1,0 +1,23 @@
+=== HTTPS Health Check ===
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100     41 100     41   0      0   2812      0                              0100     41 100     41   0      0   2790      0                              0100     41 100     41   0      0   2774      0                              0
+HTTP/2 200 
+server: gunicorn
+date: Thu, 12 Nov 2026 10:14:28 GMT
+content-type: application/json
+content-length: 41
+
+{"service":"roomops","status":"healthy"}
+
+=== HTTPS Readiness Check ===
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0100     42 100     42   0      0   2588      0                              0100     42 100     42   0      0   2571      0                              0100     42 100     42   0      0   2559      0                              0
+HTTP/2 200 
+server: gunicorn
+date: Thu, 12 Nov 2026 10:14:28 GMT
+content-type: application/json
+content-length: 42
+
+{"database":"connected","status":"ready"}

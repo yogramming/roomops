@@ -23,7 +23,8 @@ def postgres_room(postgres_app):
 
         yield room_number
 
-        db.session.execute(db.delete(Reservation).where(Reservation.room_id == room.id))
+        db.session.execute(db.delete(Reservation).where(
+            Reservation.room_id == room.id))
         db.session.delete(room)
         db.session.commit()
 
@@ -46,13 +47,15 @@ def test_concurrent_overlapping_reservations(
     with ThreadPoolExecutor(max_workers=2) as executor:
         futures = [executor.submit(make_reservation) for _ in range(2)]
         responses = [future.result() for future in futures]
+        print([(r.status_code, r.get_json()) for r in responses])
 
     statuses = sorted(response.status_code for response in responses)
 
     assert statuses == [201, 409]
 
     with postgres_app.app_context():
-        room = db.session.scalar(select(Room).where(Room.room_number == postgres_room))
+        room = db.session.scalar(select(Room).where(
+            Room.room_number == postgres_room))
 
         reservations = db.session.scalars(
             select(Reservation).where(

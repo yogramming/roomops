@@ -1,0 +1,17 @@
+=== PostgreSQL Backup Restore Verification ===
+Source backup: roomops-20261111T144322Z.dump
+Target database: roomops_restore_test
+
+=== Database Accessibility ===
+   current_database   
+----------------------
+ roomops_restore_test
+(1 row)
+
+
+=== Restored Record Counts ===
+ restored_rooms | restored_reservations 
+----------------+-----------------------
+              5 |                     3
+(1 row)
+

@@ -1,0 +1,10 @@
+Project: RoomOps
+Registry: Docker Hub
+Image: yogramming/roomops
+Version tag: e401158e7cfb
+Build: Jenkins RoomOps-CI #7
+
+=== Remote image manifest and digest ===
+Name:      docker.io/yogramming/roomops:e401158e7cfb
+MediaType: application/vnd.docker.distribution.manifest.v2+json
+Digest:    sha256:78996b0b7fa6d8217e572fde980203cd47a4fa5dbb3357ca7004c83e1863ef51

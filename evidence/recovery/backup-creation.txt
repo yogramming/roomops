@@ -1,0 +1,33 @@
+=== PostgreSQL Backup Inventory ===
+Thu Nov 12 10:47:02 AM UTC 2026
+total 40K
+-rw-r--r-- 1 yogramming yogramming 7.4K 2026-11-11 20:08 roomops-20261111T143836Z.dump
+-rw-r--r-- 1 yogramming yogramming 7.4K 2026-11-11 20:11 roomops-20261111T144145Z.dump
+-rw-r--r-- 1 yogramming yogramming 7.4K 2026-11-11 20:12 roomops-20261111T144203Z.dump
+-rw-r--r-- 1 yogramming yogramming 7.4K 2026-11-11 20:12 roomops-20261111T144247Z.dump
+-rw-r--r-- 1 yogramming yogramming 7.4K 2026-11-11 20:13 roomops-20261111T144322Z.dump
+
+=== Latest Backup Metadata ===
+backups/postgres/roomops-20261111T144322Z.dump: PostgreSQL custom database dump - v1.16-0
+
+=== Backup Format Validation ===
+;
+; Archive created at 2026-11-11 14:43:22 IST
+;     dbname: roomops
+;     TOC Entries: 25
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 17.6
+;     Dumped by pg_dump version: 17.6
+;
+;
+; Selected TOC Entries:
+;
+2; 3079 16420 EXTENSION - btree_gist 
+3718; 0 0 COMMENT - EXTENSION btree_gist 
+1044; 1247 16403 TYPE public reservation_status roomops
+218; 1259 16387 TABLE public alembic_version roomops
+221; 1259 16407 TABLE public reservations roomops

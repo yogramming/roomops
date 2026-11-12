@@ -1,0 +1,34 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /home/yogramming/src/github/yogramming/roomops/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/yogramming/src/github/yogramming/roomops
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collecting ... collected 24 items
+
+tests/test_availability.py::test_availability_returns_only_available_rooms PASSED [  4%]
+tests/test_availability.py::test_availability_respects_checkout_boundary PASSED [  8%]
+tests/test_availability.py::test_availability_filters_by_room_type PASSED [ 12%]
+tests/test_availability.py::test_availability_requires_dates PASSED      [ 16%]
+tests/test_availability.py::test_availability_rejects_invalid_date_range PASSED [ 20%]
+tests/test_availability.py::test_availability_rejects_invalid_date_format PASSED [ 25%]
+tests/test_errors.py::test_unknown_route_returns_json_404 PASSED         [ 29%]
+tests/test_errors.py::test_unexpected_exception_returns_json_500 PASSED  [ 33%]
+tests/test_health.py::test_health_endpoint PASSED                        [ 37%]
+tests/test_health.py::test_readiness_endpoint PASSED                     [ 41%]
+tests/test_metrics.py::test_metrics_endpoint_returns_prometheus_format PASSED [ 45%]
+tests/test_metrics.py::test_metrics_endpoint_does_not_count_itself PASSED [ 50%]
+tests/test_postgres_concurrency.py::test_concurrent_overlapping_reservations PASSED [ 54%]
+tests/test_postgres_concurrency.py::test_non_overlapping_reservations_both_succeed PASSED [ 58%]
+tests/test_postgres_constraint.py::test_database_rejects_overlapping_confirmed_reservations PASSED [ 62%]
+tests/test_reservations.py::test_create_reservation_success PASSED       [ 66%]
+tests/test_reservations.py::test_create_reservation_requires_json PASSED [ 70%]
+tests/test_reservations.py::test_create_reservation_requires_fields PASSED [ 75%]
+tests/test_reservations.py::test_create_reservation_rejects_invalid_dates PASSED [ 79%]
+tests/test_reservations.py::test_create_reservation_rejects_unknown_room PASSED [ 83%]
+tests/test_reservations.py::test_create_reservation_rejects_inactive_room PASSED [ 87%]
+tests/test_reservations.py::test_create_reservation_rejects_non_object_json PASSED [ 91%]
+tests/test_reservations.py::test_get_reservation_success PASSED          [ 95%]
+tests/test_reservations.py::test_get_reservation_not_found PASSED        [100%]
+
+============================== 24 passed in 1.10s ==============================

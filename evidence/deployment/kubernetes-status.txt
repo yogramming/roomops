@@ -1,0 +1,29 @@
+=== Kubernetes Context ===
+kind-lab
+
+=== Nodes ===
+NAME                STATUS   ROLES           AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                       KERNEL-VERSION          CONTAINER-RUNTIME
+lab-control-plane   Ready    control-plane   79d   v1.36.1   172.18.0.4    <none>        Debian GNU/Linux 13 (trixie)   6.18.60-1-lts (amd64)   containerd://2.3.1
+lab-worker          Ready    <none>          79d   v1.36.1   172.18.0.3    <none>        Debian GNU/Linux 13 (trixie)   6.18.60-1-lts (amd64)   containerd://2.3.1
+lab-worker2         Ready    <none>          79d   v1.36.1   172.18.0.2    <none>        Debian GNU/Linux 13 (trixie)   6.18.60-1-lts (amd64)   containerd://2.3.1
+
+=== RoomOps Pods ===
+NAME                           READY   STATUS    RESTARTS   AGE   IP            NODE          NOMINATED NODE   READINESS GATES
+roomops-api-65696697c7-hggnr   1/1     Running   0          38h   10.244.1.10   lab-worker    <none>           <none>
+roomops-postgres-0             1/1     Running   0          2d    10.244.2.3    lab-worker2   <none>           <none>
+
+=== Deployments and StatefulSets ===
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/roomops-api   1/1     1            1           38h
+
+NAME                                READY   AGE
+statefulset.apps/roomops-postgres   1/1     2d
+
+=== Services ===
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+roomops-api        ClusterIP   10.96.54.12   <none>        8000/TCP   38h
+roomops-postgres   ClusterIP   None          <none>        5432/TCP   2d
+
+=== Persistent Volume Claims ===
+NAME                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+postgres-data-roomops-postgres-0   Bound    pvc-da0b8a6e-d26a-48cd-82c5-0c6fc1c63900   2Gi        RWO            standard       <unset>                 2d

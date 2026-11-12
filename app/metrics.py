@@ -1,4 +1,5 @@
 import time
+import os
 
 from flask import Blueprint, Response, g, request
 from prometheus_client import (
@@ -50,10 +51,16 @@ def record_request(response):
 
 @metrics_bp.get("/metrics")
 def metrics():
-    registry = CollectorRegistry()
-    multiprocess.MultiProcessCollector(registry)
+    multiproc_dir = os.getenv("PROMETHEUS_MULTIPROC_DIR")
+
+    if multiproc_dir and os.path.isdir(multiproc_dir):
+        registry = CollectorRegistry()
+        multiprocess.MultiProcessCollector(registry)
+        output = generate_latest(registry)
+    else:
+        output = generate_latest()
 
     return Response(
-        generate_latest(registry),
+        output,
         mimetype="text/plain; version=0.0.4; charset=utf-8",
     )

@@ -1,0 +1,617 @@
+Started by user Yogesh Dubey
+Obtained Jenkinsfile from git https://github.com/yogramming/roomops.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/RoomOps-CI
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-creds
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/RoomOps-CI/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/yogramming/roomops.git # timeout=10
+Fetching upstream changes from https://github.com/yogramming/roomops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.56.0'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/yogramming/roomops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision e401158e7cfbce81db69d60184bb268fe8312101 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f e401158e7cfbce81db69d60184bb268fe8312101 # timeout=10
+Commit message: "fix(ci): use dynamic PostgreSQL port and configure metrics tests"
+ > git rev-list --no-walk 2e5f9acf04cf4626220192355b266e473aa357a6 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+[2026-11-10T19:19:34.152Z] Selected Git installation does not exist. Using Default
+[2026-11-10T19:19:34.152Z] The recommended git tool is: NONE
+[2026-11-10T19:19:34.152Z] using credential github-creds
+[2026-11-10T19:19:34.156Z]  > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/RoomOps-CI/.git # timeout=10
+[2026-11-10T19:19:34.160Z] Fetching changes from the remote Git repository
+[2026-11-10T19:19:34.163Z]  > git config remote.origin.url https://github.com/yogramming/roomops.git # timeout=10
+[2026-11-10T19:19:34.167Z] Fetching upstream changes from https://github.com/yogramming/roomops.git
+[2026-11-10T19:19:34.167Z]  > git --version # timeout=10
+[2026-11-10T19:19:34.171Z]  > git --version # 'git version 2.56.0'
+[2026-11-10T19:19:34.171Z] using GIT_ASKPASS to set credentials 
+[2026-11-10T19:19:34.177Z]  > git fetch --tags --force --progress -- https://github.com/yogramming/roomops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+[2026-11-10T19:19:34.862Z]  > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+[2026-11-10T19:19:34.867Z] Checking out Revision e401158e7cfbce81db69d60184bb268fe8312101 (refs/remotes/origin/main)
+[2026-11-10T19:19:34.867Z]  > git config core.sparsecheckout # timeout=10
+[2026-11-10T19:19:34.871Z]  > git checkout -f e401158e7cfbce81db69d60184bb268fe8312101 # timeout=10
+[2026-11-10T19:19:34.878Z] Commit message: "fix(ci): use dynamic PostgreSQL port and configure metrics tests"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Setup Python)
+[Pipeline] sh
+[2026-11-10T19:19:35.202Z] + python3 --version
+[2026-11-10T19:19:35.202Z] Python 3.14.9
+[2026-11-10T19:19:35.202Z] + rm -rf /var/lib/jenkins/workspace/RoomOps-CI/.prometheus-multiproc
+[2026-11-10T19:19:35.202Z] + mkdir -p /var/lib/jenkins/workspace/RoomOps-CI/.prometheus-multiproc
+[2026-11-10T19:19:35.202Z] + python3 -m venv .ci-venv
+[2026-11-10T19:19:39.326Z] + .ci-venv/bin/python -m pip install -r requirements-dev.txt
+[2026-11-10T19:19:39.326Z] Collecting Flask==3.1.3 (from -r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.326Z]   Using cached flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+[2026-11-10T19:19:39.326Z] Collecting Flask-Migrate==4.1.0 (from -r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 2))
+[2026-11-10T19:19:39.326Z]   Using cached Flask_Migrate-4.1.0-py3-none-any.whl.metadata (3.3 kB)
+[2026-11-10T19:19:39.326Z] Collecting Flask-SQLAlchemy==3.1.1 (from -r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 3))
+[2026-11-10T19:19:39.326Z]   Using cached flask_sqlalchemy-3.1.1-py3-none-any.whl.metadata (3.4 kB)
+[2026-11-10T19:19:39.326Z] Collecting gunicorn==26.2.0 (from -r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 4))
+[2026-11-10T19:19:39.326Z]   Using cached gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+[2026-11-10T19:19:39.326Z] Collecting psycopg==3.3.8 (from psycopg[binary]==3.3.8->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 5))
+[2026-11-10T19:19:39.326Z]   Using cached psycopg-3.3.8-py3-none-any.whl.metadata (4.4 kB)
+[2026-11-10T19:19:39.326Z] Collecting python-dotenv==1.2.4 (from -r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 6))
+[2026-11-10T19:19:39.326Z]   Using cached python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+[2026-11-10T19:19:39.326Z] Collecting prometheus-client==0.26.0 (from -r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 7))
+[2026-11-10T19:19:39.326Z]   Using cached prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+[2026-11-10T19:19:39.326Z] Collecting pytest==9.2.0 (from -r requirements-dev.txt (line 3))
+[2026-11-10T19:19:39.326Z]   Using cached pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+[2026-11-10T19:19:39.326Z] Collecting pytest-cov==7.1.0 (from -r requirements-dev.txt (line 4))
+[2026-11-10T19:19:39.326Z]   Using cached pytest_cov-7.1.0-py3-none-any.whl.metadata (32 kB)
+[2026-11-10T19:19:39.877Z] Collecting ruff==0.17.4 (from -r requirements-dev.txt (line 5))
+[2026-11-10T19:19:39.877Z]   Using cached ruff-0.17.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+[2026-11-10T19:19:39.877Z] Collecting blinker>=1.9.0 (from Flask==3.1.3->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.877Z]   Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+[2026-11-10T19:19:39.877Z] Collecting click>=8.1.3 (from Flask==3.1.3->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.877Z]   Using cached click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+[2026-11-10T19:19:39.877Z] Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.877Z]   Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+[2026-11-10T19:19:39.877Z] Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.877Z]   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+[2026-11-10T19:19:39.877Z] Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.877Z]   Using cached markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+[2026-11-10T19:19:39.877Z] Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 1))
+[2026-11-10T19:19:39.877Z]   Using cached werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[2026-11-10T19:19:39.877Z] Collecting alembic>=1.9.0 (from Flask-Migrate==4.1.0->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 2))
+[2026-11-10T19:19:39.877Z]   Using cached alembic-1.20.1-py3-none-any.whl.metadata (7.3 kB)
+[2026-11-10T19:19:40.428Z] Collecting sqlalchemy>=2.0.16 (from Flask-SQLAlchemy==3.1.1->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 3))
+[2026-11-10T19:19:40.428Z]   Using cached sqlalchemy-2.1.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+[2026-11-10T19:19:40.428Z] Collecting iniconfig>=2 (from pytest==9.2.0->-r requirements-dev.txt (line 3))
+[2026-11-10T19:19:40.428Z]   Using cached iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+[2026-11-10T19:19:40.428Z] Collecting packaging>=24 (from pytest==9.2.0->-r requirements-dev.txt (line 3))
+[2026-11-10T19:19:40.428Z]   Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+[2026-11-10T19:19:40.428Z] Collecting pluggy<2,>=1.6 (from pytest==9.2.0->-r requirements-dev.txt (line 3))
+[2026-11-10T19:19:40.428Z]   Using cached pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+[2026-11-10T19:19:40.428Z] Collecting pygments>=2.15 (from pytest==9.2.0->-r requirements-dev.txt (line 3))
+[2026-11-10T19:19:40.428Z]   Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+[2026-11-10T19:19:40.979Z] Collecting coverage>=7.10.6 (from coverage[toml]>=7.10.6->pytest-cov==7.1.0->-r requirements-dev.txt (line 4))
+[2026-11-10T19:19:40.979Z]   Using cached coverage-7.17.2-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (8.1 kB)
+[2026-11-10T19:19:41.229Z] Collecting psycopg-binary==3.3.8 (from psycopg[binary]==3.3.8->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 5))
+[2026-11-10T19:19:41.229Z]   Using cached psycopg_binary-3.3.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+[2026-11-10T19:19:41.229Z] Collecting Mako (from alembic>=1.9.0->Flask-Migrate==4.1.0->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 2))
+[2026-11-10T19:19:41.229Z]   Using cached mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+[2026-11-10T19:19:41.229Z] Collecting typing-extensions>=4.12 (from alembic>=1.9.0->Flask-Migrate==4.1.0->-r /var/lib/jenkins/workspace/RoomOps-CI/requirements.txt (line 2))
+[2026-11-10T19:19:41.229Z]   Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+[2026-11-10T19:19:41.229Z] Using cached flask-3.1.3-py3-none-any.whl (103 kB)
+[2026-11-10T19:19:41.229Z] Using cached Flask_Migrate-4.1.0-py3-none-any.whl (21 kB)
+[2026-11-10T19:19:41.229Z] Using cached flask_sqlalchemy-3.1.1-py3-none-any.whl (25 kB)
+[2026-11-10T19:19:41.229Z] Using cached gunicorn-26.2.0-py3-none-any.whl (228 kB)
+[2026-11-10T19:19:41.229Z] Using cached psycopg-3.3.8-py3-none-any.whl (216 kB)
+[2026-11-10T19:19:41.229Z] Using cached python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+[2026-11-10T19:19:41.229Z] Using cached prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+[2026-11-10T19:19:41.229Z] Using cached pytest-9.2.0-py3-none-any.whl (411 kB)
+[2026-11-10T19:19:41.229Z] Using cached pytest_cov-7.1.0-py3-none-any.whl (22 kB)
+[2026-11-10T19:19:41.229Z] Using cached ruff-0.17.4-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.6 MB)
+[2026-11-10T19:19:41.229Z] Using cached psycopg_binary-3.3.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.3 MB)
+[2026-11-10T19:19:41.229Z] Using cached pluggy-1.7.0-py3-none-any.whl (27 kB)
+[2026-11-10T19:19:41.229Z] Using cached alembic-1.20.1-py3-none-any.whl (270 kB)
+[2026-11-10T19:19:41.229Z] Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[2026-11-10T19:19:41.229Z] Using cached click-8.5.1-py3-none-any.whl (126 kB)
+[2026-11-10T19:19:41.229Z] Using cached coverage-7.17.2-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (262 kB)
+[2026-11-10T19:19:41.229Z] Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+[2026-11-10T19:19:41.229Z] Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[2026-11-10T19:19:41.229Z] Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+[2026-11-10T19:19:41.229Z] Using cached markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+[2026-11-10T19:19:41.229Z] Using cached packaging-26.3-py3-none-any.whl (129 kB)
+[2026-11-10T19:19:41.229Z] Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+[2026-11-10T19:19:41.229Z] Using cached sqlalchemy-2.1.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.6 MB)
+[2026-11-10T19:19:41.229Z] Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+[2026-11-10T19:19:41.229Z] Using cached werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[2026-11-10T19:19:41.229Z] Using cached mako-1.4.3-py3-none-any.whl (80 kB)
+[2026-11-10T19:19:41.480Z] Installing collected packages: typing-extensions, ruff, python-dotenv, pygments, psycopg-binary, psycopg, prometheus-client, pluggy, packaging, markupsafe, itsdangerous, iniconfig, gunicorn, coverage, click, blinker, werkzeug, sqlalchemy, pytest, Mako, jinja2, pytest-cov, Flask, alembic, Flask-SQLAlchemy, Flask-Migrate
+[2026-11-10T19:19:46.675Z] 
+[2026-11-10T19:19:46.675Z] Successfully installed Flask-3.1.3 Flask-Migrate-4.1.0 Flask-SQLAlchemy-3.1.1 Mako-1.4.3 alembic-1.20.1 blinker-1.9.0 click-8.5.1 coverage-7.17.2 gunicorn-26.2.0 iniconfig-2.3.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 packaging-26.3 pluggy-1.7.0 prometheus-client-0.26.0 psycopg-3.3.8 psycopg-binary-3.3.8 pygments-2.21.0 pytest-9.2.0 pytest-cov-7.1.0 python-dotenv-1.2.4 ruff-0.17.4 sqlalchemy-2.1.8 typing-extensions-4.16.0 werkzeug-3.1.9
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lint)
+[Pipeline] sh
+[2026-11-10T19:19:47.245Z] + .ci-venv/bin/ruff check .
+[2026-11-10T19:19:47.245Z] All checks passed!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Start PostgreSQL)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+[2026-11-10T19:19:47.603Z] + docker run -d --name roomops-ci-postgres-7 -e POSTGRES_DB=roomops_ci -e POSTGRES_USER=roomops_ci -e POSTGRES_PASSWORD=roomops_ci_test_password -p 127.0.0.1::5432 '--health-cmd=pg_isready -U roomops_ci -d roomops_ci' --health-interval=5s --health-timeout=3s --health-retries=10 postgres:17-alpine
+[2026-11-10T19:19:47.604Z] 0fa0bab4aed26c0e9f5f96f784b4b65d62543a50d0c5445f77fa13bdc966eb56
+[2026-11-10T19:19:47.854Z] ++ seq 1 30
+[2026-11-10T19:19:47.854Z] + for i in $(seq 1 30)
+[2026-11-10T19:19:47.854Z] ++ docker inspect '--format={{.State.Health.Status}}' roomops-ci-postgres-7
+[2026-11-10T19:19:47.854Z] + STATUS=starting
+[2026-11-10T19:19:47.854Z] + '[' starting = healthy ']'
+[2026-11-10T19:19:47.854Z] + echo 'Waiting for PostgreSQL: starting'
+[2026-11-10T19:19:47.854Z] Waiting for PostgreSQL: starting
+[2026-11-10T19:19:47.854Z] + sleep 2
+[2026-11-10T19:19:50.338Z] + for i in $(seq 1 30)
+[2026-11-10T19:19:50.338Z] ++ docker inspect '--format={{.State.Health.Status}}' roomops-ci-postgres-7
+[2026-11-10T19:19:50.338Z] + STATUS=starting
+[2026-11-10T19:19:50.338Z] + '[' starting = healthy ']'
+[2026-11-10T19:19:50.338Z] + echo 'Waiting for PostgreSQL: starting'
+[2026-11-10T19:19:50.338Z] Waiting for PostgreSQL: starting
+[2026-11-10T19:19:50.338Z] + sleep 2
+[2026-11-10T19:19:52.199Z] + for i in $(seq 1 30)
+[2026-11-10T19:19:52.199Z] ++ docker inspect '--format={{.State.Health.Status}}' roomops-ci-postgres-7
+[2026-11-10T19:19:52.199Z] + STATUS=starting
+[2026-11-10T19:19:52.199Z] + '[' starting = healthy ']'
+[2026-11-10T19:19:52.199Z] + echo 'Waiting for PostgreSQL: starting'
+[2026-11-10T19:19:52.199Z] Waiting for PostgreSQL: starting
+[2026-11-10T19:19:52.199Z] + sleep 2
+[2026-11-10T19:19:54.061Z] + for i in $(seq 1 30)
+[2026-11-10T19:19:54.061Z] ++ docker inspect '--format={{.State.Health.Status}}' roomops-ci-postgres-7
+[2026-11-10T19:19:54.061Z] + STATUS=healthy
+[2026-11-10T19:19:54.061Z] + '[' healthy = healthy ']'
+[2026-11-10T19:19:54.061Z] + echo 'PostgreSQL is ready.'
+[2026-11-10T19:19:54.061Z] PostgreSQL is ready.
+[2026-11-10T19:19:54.061Z] + exit 0
+[Pipeline] sh
+[2026-11-10T19:19:54.337Z] + docker inspect '--format={{(index (index .NetworkSettings.Ports "5432/tcp") 0).HostPort}}' roomops-ci-postgres-7
+[Pipeline] echo
+[2026-11-10T19:19:54.362Z] PostgreSQL host port: 32768
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Database Migrations & Tests)
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
+[2026-11-10T19:19:54.753Z] + .ci-venv/bin/flask --app 'app:create_app()' db upgrade
+[2026-11-10T19:19:55.304Z] INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+[2026-11-10T19:19:55.304Z] INFO  [alembic.runtime.migration] Will assume transactional DDL.
+[2026-11-10T19:19:55.304Z] INFO  [alembic.runtime.migration] Running upgrade  -> 82cf43dda221, create rooms and reservations tables
+[2026-11-10T19:19:55.304Z] INFO  [alembic.runtime.migration] Running upgrade 82cf43dda221 -> 5ad9b34a5dff, add reservation overlap constraint
+[2026-11-10T19:19:55.855Z] + .ci-venv/bin/python -m pytest -v
+[2026-11-10T19:19:56.405Z] ============================= test session starts ==============================
+[2026-11-10T19:19:56.405Z] platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /var/lib/jenkins/workspace/RoomOps-CI/.ci-venv/bin/python
+[2026-11-10T19:19:56.405Z] cachedir: .pytest_cache
+[2026-11-10T19:19:56.405Z] rootdir: /var/lib/jenkins/workspace/RoomOps-CI
+[2026-11-10T19:19:56.405Z] configfile: pyproject.toml
+[2026-11-10T19:19:56.405Z] testpaths: tests
+[2026-11-10T19:19:56.405Z] plugins: cov-7.1.0
+[2026-11-10T19:19:56.406Z] collecting ... collected 24 items
+[2026-11-10T19:19:56.406Z] 
+[2026-11-10T19:19:56.656Z] tests/test_availability.py::test_availability_returns_only_available_rooms PASSED [  4%]
+[2026-11-10T19:19:56.656Z] tests/test_availability.py::test_availability_respects_checkout_boundary PASSED [  8%]
+[2026-11-10T19:19:56.656Z] tests/test_availability.py::test_availability_filters_by_room_type PASSED [ 12%]
+[2026-11-10T19:19:56.656Z] tests/test_availability.py::test_availability_requires_dates PASSED      [ 16%]
+[2026-11-10T19:19:56.656Z] tests/test_availability.py::test_availability_rejects_invalid_date_range PASSED [ 20%]
+[2026-11-10T19:19:56.656Z] tests/test_availability.py::test_availability_rejects_invalid_date_format PASSED [ 25%]
+[2026-11-10T19:19:56.656Z] tests/test_errors.py::test_unknown_route_returns_json_404 PASSED         [ 29%]
+[2026-11-10T19:19:56.656Z] tests/test_errors.py::test_unexpected_exception_returns_json_500 PASSED  [ 33%]
+[2026-11-10T19:19:56.656Z] tests/test_health.py::test_health_endpoint PASSED                        [ 37%]
+[2026-11-10T19:19:56.656Z] tests/test_health.py::test_readiness_endpoint PASSED                     [ 41%]
+[2026-11-10T19:19:56.656Z] tests/test_metrics.py::test_metrics_endpoint_returns_prometheus_format PASSED [ 45%]
+[2026-11-10T19:19:56.656Z] tests/test_metrics.py::test_metrics_endpoint_does_not_count_itself PASSED [ 50%]
+[2026-11-10T19:19:56.906Z] tests/test_postgres_concurrency.py::test_concurrent_overlapping_reservations PASSED [ 54%]
+[2026-11-10T19:19:56.906Z] tests/test_postgres_concurrency.py::test_non_overlapping_reservations_both_succeed PASSED [ 58%]
+[2026-11-10T19:19:56.906Z] tests/test_postgres_constraint.py::test_database_rejects_overlapping_confirmed_reservations PASSED [ 62%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_success PASSED       [ 66%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_requires_json PASSED [ 70%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_requires_fields PASSED [ 75%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_rejects_invalid_dates PASSED [ 79%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_rejects_unknown_room PASSED [ 83%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_rejects_inactive_room PASSED [ 87%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_create_reservation_rejects_non_object_json PASSED [ 91%]
+[2026-11-10T19:19:56.906Z] tests/test_reservations.py::test_get_reservation_success PASSED          [ 95%]
+[2026-11-10T19:19:57.157Z] tests/test_reservations.py::test_get_reservation_not_found PASSED        [100%]
+[2026-11-10T19:19:57.157Z] 
+[2026-11-10T19:19:57.157Z] ============================== 24 passed in 0.60s ==============================
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+[2026-11-10T19:19:57.807Z] + git rev-parse --short=12 HEAD
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] sh
+[2026-11-10T19:19:58.112Z] + docker build --pull -t roomops:e401158e7cfb .
+[2026-11-10T19:19:58.362Z] #0 building with "default" instance using docker driver
+[2026-11-10T19:19:58.362Z] 
+[2026-11-10T19:19:58.362Z] #1 [internal] load build definition from Dockerfile
+[2026-11-10T19:19:58.362Z] #1 transferring dockerfile: 1.72kB done
+[2026-11-10T19:19:58.362Z] #1 DONE 0.0s
+[2026-11-10T19:19:58.362Z] 
+[2026-11-10T19:19:58.362Z] #2 [internal] load metadata for docker.io/library/python:3.14-slim-bookworm
+[2026-11-10T19:19:59.706Z] #2 ...
+[2026-11-10T19:19:59.706Z] 
+[2026-11-10T19:19:59.706Z] #3 [auth] library/python:pull token for registry-1.docker.io
+[2026-11-10T19:19:59.706Z] #3 DONE 0.0s
+[2026-11-10T19:19:59.706Z] 
+[2026-11-10T19:19:59.706Z] #2 [internal] load metadata for docker.io/library/python:3.14-slim-bookworm
+[2026-11-10T19:20:00.256Z] #2 DONE 2.0s
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #4 [internal] load .dockerignore
+[2026-11-10T19:20:00.507Z] #4 transferring context: 221B done
+[2026-11-10T19:20:00.507Z] #4 DONE 0.0s
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #5 [builder 1/4] FROM docker.io/library/python:3.14-slim-bookworm@sha256:3fe1a0b6c2d6b2ebb572906cdabeca75aeb558c0c17db5ffefbcf8094871c32b
+[2026-11-10T19:20:00.507Z] #5 DONE 0.0s
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #6 [runtime  2/11] RUN python -m pip install --no-cache-dir --upgrade       pip       setuptools
+[2026-11-10T19:20:00.507Z] #6 CACHED
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #7 [runtime  3/11] WORKDIR /app
+[2026-11-10T19:20:00.507Z] #7 CACHED
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #8 [internal] load build context
+[2026-11-10T19:20:00.507Z] #8 transferring context: 20.48kB done
+[2026-11-10T19:20:00.507Z] #8 DONE 0.0s
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #9 [builder 2/4] WORKDIR /build
+[2026-11-10T19:20:00.507Z] #9 CACHED
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #10 [builder 3/4] COPY requirements.txt .
+[2026-11-10T19:20:00.507Z] #10 DONE 0.0s
+[2026-11-10T19:20:00.507Z] 
+[2026-11-10T19:20:00.507Z] #11 [builder 4/4] RUN python -m pip install     --prefix=/install     --no-cache-dir     -r requirements.txt
+[2026-11-10T19:20:00.757Z] #11 ...
+[2026-11-10T19:20:00.757Z] 
+[2026-11-10T19:20:00.757Z] #12 [runtime  4/11] RUN groupadd --system --gid 10001 roomops     && useradd --system --uid 10001        --gid roomops        --home-dir /app        --no-create-home roomops
+[2026-11-10T19:20:00.757Z] #12 0.359 useradd warning: roomops's uid 10001 is greater than SYS_UID_MAX 999
+[2026-11-10T19:20:00.757Z] #12 DONE 0.4s
+[2026-11-10T19:20:01.008Z] 
+[2026-11-10T19:20:01.008Z] #13 [runtime  5/11] RUN mkdir -p /tmp/roomops-prometheus     && chown 10001:10001 /tmp/roomops-prometheus
+[2026-11-10T19:20:01.008Z] #13 DONE 0.3s
+[2026-11-10T19:20:01.008Z] 
+[2026-11-10T19:20:01.008Z] #11 [builder 4/4] RUN python -m pip install     --prefix=/install     --no-cache-dir     -r requirements.txt
+[2026-11-10T19:20:02.870Z] #11 2.598 Collecting Flask==3.1.3 (from -r requirements.txt (line 1))
+[2026-11-10T19:20:03.781Z] #11 3.324   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+[2026-11-10T19:20:04.031Z] #11 3.394 Collecting Flask-Migrate==4.1.0 (from -r requirements.txt (line 2))
+[2026-11-10T19:20:04.031Z] #11 3.606   Downloading Flask_Migrate-4.1.0-py3-none-any.whl.metadata (3.3 kB)
+[2026-11-10T19:20:04.281Z] #11 3.676 Collecting Flask-SQLAlchemy==3.1.1 (from -r requirements.txt (line 3))
+[2026-11-10T19:20:04.281Z] #11 3.888   Downloading flask_sqlalchemy-3.1.1-py3-none-any.whl.metadata (3.4 kB)
+[2026-11-10T19:20:04.532Z] #11 3.972 Collecting gunicorn==26.2.0 (from -r requirements.txt (line 4))
+[2026-11-10T19:20:04.532Z] #11 4.183   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+[2026-11-10T19:20:04.782Z] #11 4.269 Collecting psycopg==3.3.8 (from psycopg[binary]==3.3.8->-r requirements.txt (line 5))
+[2026-11-10T19:20:04.782Z] #11 4.480   Downloading psycopg-3.3.8-py3-none-any.whl.metadata (4.4 kB)
+[2026-11-10T19:20:05.033Z] #11 4.563 Collecting python-dotenv==1.2.4 (from -r requirements.txt (line 6))
+[2026-11-10T19:20:05.283Z] #11 4.778   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+[2026-11-10T19:20:05.283Z] #11 4.918 Collecting prometheus-client==0.26.0 (from -r requirements.txt (line 7))
+[2026-11-10T19:20:05.533Z] #11 5.127   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+[2026-11-10T19:20:05.784Z] #11 5.184 Collecting blinker>=1.9.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[2026-11-10T19:20:05.784Z] #11 5.391   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+[2026-11-10T19:20:06.034Z] #11 5.460 Collecting click>=8.1.3 (from Flask==3.1.3->-r requirements.txt (line 1))
+[2026-11-10T19:20:06.034Z] #11 5.672   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+[2026-11-10T19:20:06.284Z] #11 5.729 Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[2026-11-10T19:20:06.284Z] #11 5.938   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+[2026-11-10T19:20:06.535Z] #11 6.000 Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r requirements.txt (line 1))
+[2026-11-10T19:20:06.535Z] #11 6.206   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+[2026-11-10T19:20:06.785Z] #11 6.392 Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r requirements.txt (line 1))
+[2026-11-10T19:20:07.035Z] #11 6.706   Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+[2026-11-10T19:20:07.286Z] #11 6.772 Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+[2026-11-10T19:20:07.286Z] #11 6.980   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+[2026-11-10T19:20:07.536Z] #11 7.054 Collecting alembic>=1.9.0 (from Flask-Migrate==4.1.0->-r requirements.txt (line 2))
+[2026-11-10T19:20:07.536Z] #11 7.266   Downloading alembic-1.20.1-py3-none-any.whl.metadata (7.3 kB)
+[2026-11-10T19:20:08.448Z] #11 7.831 Collecting sqlalchemy>=2.0.16 (from Flask-SQLAlchemy==3.1.1->-r requirements.txt (line 3))
+[2026-11-10T19:20:08.448Z] #11 8.139   Downloading sqlalchemy-2.1.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.7 kB)
+[2026-11-10T19:20:08.699Z] #11 8.410 Collecting psycopg-binary==3.3.8 (from psycopg[binary]==3.3.8->-r requirements.txt (line 5))
+[2026-11-10T19:20:08.950Z] #11 8.651   Downloading psycopg_binary-3.3.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+[2026-11-10T19:20:09.200Z] #11 8.718 Collecting Mako (from alembic>=1.9.0->Flask-Migrate==4.1.0->-r requirements.txt (line 2))
+[2026-11-10T19:20:09.200Z] #11 8.926   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+[2026-11-10T19:20:09.451Z] #11 8.988 Collecting typing-extensions>=4.12 (from alembic>=1.9.0->Flask-Migrate==4.1.0->-r requirements.txt (line 2))
+[2026-11-10T19:20:09.701Z] #11 9.197   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+[2026-11-10T19:20:09.701Z] #11 9.417 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+[2026-11-10T19:20:10.252Z] #11 9.880 Downloading Flask_Migrate-4.1.0-py3-none-any.whl (21 kB)
+[2026-11-10T19:20:10.502Z] #11 10.10 Downloading flask_sqlalchemy-3.1.1-py3-none-any.whl (25 kB)
+[2026-11-10T19:20:10.753Z] #11 10.32 Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+[2026-11-10T19:20:11.304Z] #11 10.76 Downloading psycopg-3.3.8-py3-none-any.whl (216 kB)
+[2026-11-10T19:20:11.304Z] #11 11.02 Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+[2026-11-10T19:20:11.554Z] #11 11.23 Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+[2026-11-10T19:20:11.804Z] #11 11.45 Downloading psycopg_binary-3.3.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.3 MB)
+[2026-11-10T19:20:14.288Z] #11 13.82    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.3/5.3 MB 2.6 MB/s  0:00:02
+[2026-11-10T19:20:14.539Z] #11 14.03 Downloading alembic-1.20.1-py3-none-any.whl (270 kB)
+[2026-11-10T19:20:14.789Z] #11 14.33 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+[2026-11-10T19:20:15.039Z] #11 14.55 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+[2026-11-10T19:20:15.290Z] #11 14.80 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+[2026-11-10T19:20:15.290Z] #11 15.02 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+[2026-11-10T19:20:15.540Z] #11 15.27 Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+[2026-11-10T19:20:15.791Z] #11 15.50 Downloading sqlalchemy-2.1.8-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.6 MB)
+[2026-11-10T19:20:18.274Z] #11 17.82    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.6/4.6 MB 2.0 MB/s  0:00:02
+[2026-11-10T19:20:18.525Z] #11 18.07 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+[2026-11-10T19:20:18.775Z] #11 18.31 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+[2026-11-10T19:20:19.026Z] #11 18.59 Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+[2026-11-10T19:20:19.277Z] #11 18.81 Installing collected packages: typing-extensions, python-dotenv, psycopg-binary, psycopg, prometheus-client, markupsafe, itsdangerous, gunicorn, click, blinker, werkzeug, sqlalchemy, Mako, jinja2, Flask, alembic, Flask-SQLAlchemy, Flask-Migrate
+[2026-11-10T19:20:23.402Z] #11 22.79 
+[2026-11-10T19:20:23.402Z] #11 22.79 Successfully installed Flask-3.1.3 Flask-Migrate-4.1.0 Flask-SQLAlchemy-3.1.1 Mako-1.4.3 alembic-1.20.1 blinker-1.9.0 click-8.5.1 gunicorn-26.2.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 prometheus-client-0.26.0 psycopg-3.3.8 psycopg-binary-3.3.8 python-dotenv-1.2.4 sqlalchemy-2.1.8 typing-extensions-4.16.0 werkzeug-3.1.9
+[2026-11-10T19:20:23.402Z] #11 22.79 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[2026-11-10T19:20:23.402Z] #11 DONE 23.0s
+[2026-11-10T19:20:23.953Z] 
+[2026-11-10T19:20:23.953Z] #14 [runtime  6/11] COPY --from=builder /install /usr/local
+[2026-11-10T19:20:24.203Z] #14 DONE 0.3s
+[2026-11-10T19:20:24.453Z] 
+[2026-11-10T19:20:24.454Z] #15 [runtime  7/11] COPY --chown=roomops:roomops app/ ./app/
+[2026-11-10T19:20:24.454Z] #15 DONE 0.0s
+[2026-11-10T19:20:24.454Z] 
+[2026-11-10T19:20:24.454Z] #16 [runtime  8/11] COPY --chown=roomops:roomops migrations/ ./migrations/
+[2026-11-10T19:20:24.454Z] #16 DONE 0.0s
+[2026-11-10T19:20:24.454Z] 
+[2026-11-10T19:20:24.454Z] #17 [runtime  9/11] COPY --chown=roomops:roomops run.py .
+[2026-11-10T19:20:24.454Z] #17 DONE 0.0s
+[2026-11-10T19:20:24.454Z] 
+[2026-11-10T19:20:24.454Z] #18 [runtime 10/11] COPY --chown=roomops:roomops pyproject.toml .
+[2026-11-10T19:20:24.454Z] #18 DONE 0.0s
+[2026-11-10T19:20:24.454Z] 
+[2026-11-10T19:20:24.454Z] #19 [runtime 11/11] COPY --chown=roomops:roomops gunicorn.conf.py .
+[2026-11-10T19:20:24.454Z] #19 DONE 0.0s
+[2026-11-10T19:20:24.454Z] 
+[2026-11-10T19:20:24.454Z] #20 exporting to image
+[2026-11-10T19:20:24.454Z] #20 exporting layers
+[2026-11-10T19:20:25.365Z] #20 exporting layers 1.1s done
+[2026-11-10T19:20:25.616Z] #20 writing image sha256:bc955a79729736d78248c501eba31579b483c320fd4c6a75052c2844c020bd75 done
+[2026-11-10T19:20:25.616Z] #20 naming to docker.io/library/roomops:e401158e7cfb done
+[2026-11-10T19:20:25.616Z] #20 DONE 1.1s
+[2026-11-10T19:20:25.616Z] + docker image inspect roomops:e401158e7cfb '--format=Image ID: {{.Id}}'
+[2026-11-10T19:20:25.616Z] Image ID: sha256:bc955a79729736d78248c501eba31579b483c320fd4c6a75052c2844c020bd75
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Trivy Security Scan)
+[Pipeline] sh
+[2026-11-10T19:20:25.961Z] + trivy image --scanners vuln --skip-files '**/pip/_vendor/bom.cdx.json' --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 --no-progress roomops:e401158e7cfb
+[2026-11-10T19:20:26.212Z] 2026-11-11T00:50:26+05:30	INFO	[vuln] Vulnerability scanning is enabled
+[2026-11-10T19:20:29.440Z] 2026-11-11T00:50:29+05:30	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
+[2026-11-10T19:20:29.440Z] 2026-11-11T00:50:29+05:30	INFO	Detected OS	family="debian" version="12.15"
+[2026-11-10T19:20:29.440Z] 2026-11-11T00:50:29+05:30	INFO	[debian] Detecting vulnerabilities...	os_version="12" pkg_num=97
+[2026-11-10T19:20:29.440Z] 2026-11-11T00:50:29+05:30	INFO	Number of language-specific files	num=1
+[2026-11-10T19:20:29.440Z] 2026-11-11T00:50:29+05:30	INFO	[python-pkg] Detecting vulnerabilities...
+[2026-11-10T19:20:29.440Z] 2026-11-11T00:50:29+05:30	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+[2026-11-10T19:20:29.440Z] 
+[2026-11-10T19:20:29.440Z] Report Summary
+[2026-11-10T19:20:29.440Z] 
+[2026-11-10T19:20:29.441Z] ┌──────────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┐
+[2026-11-10T19:20:29.441Z] │                                      Target                                      │    Type    │ Vulnerabilities │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ roomops:e401158e7cfb (debian 12.15)                                              │   debian   │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/Flask_Migrate-4.1.0.dist-info/METADATA    │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/alembic-1.20.1.dist-info/METADATA         │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/blinker-1.9.0.dist-info/METADATA          │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/click-8.5.1.dist-info/METADATA            │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/flask-3.1.3.dist-info/METADATA            │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/flask_sqlalchemy-3.1.1.dist-info/METADATA │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/gunicorn-26.2.0.dist-info/METADATA        │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/itsdangerous-2.2.0.dist-info/METADATA     │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/jinja2-3.1.6.dist-info/METADATA           │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/mako-1.4.3.dist-info/METADATA             │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/markupsafe-3.0.4.dist-info/METADATA       │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/pip-26.3.dist-info/METADATA               │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/prometheus_client-0.26.0.dist-info/METAD- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ ATA                                                                              │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/psycopg-3.3.8.dist-info/METADATA          │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/psycopg_binary-3.3.8.dist-info/METADATA   │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/python_dotenv-1.2.4.dist-info/METADATA    │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools-84.2.1.dist-info/METADATA      │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/autocommand-2.2.2.dis- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ t-info/METADATA                                                                  │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/backports.tarfile-1.2- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ .0.dist-info/METADATA                                                            │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/importlib_metadata-8.- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ 7.1.dist-info/METADATA                                                           │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/jaraco.text-4.0.0.dis- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ t-info/METADATA                                                                  │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/jaraco_context-6.1.0.- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ dist-info/METADATA                                                               │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/jaraco_functools-4.4.- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ 0.dist-info/METADATA                                                             │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/more_itertools-10.8.0- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ .dist-info/METADATA                                                              │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/packaging-26.3.dist-i- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ nfo/METADATA                                                                     │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/platformdirs-4.4.0.di- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ st-info/METADATA                                                                 │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/tomli-2.4.0.dist-info- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ /METADATA                                                                        │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/wheel-0.46.3.dist-inf- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ o/METADATA                                                                       │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/setuptools/_vendor/zipp-3.23.0.dist-info- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ /METADATA                                                                        │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/sqlalchemy-2.1.8.dist-info/METADATA       │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/typing_extensions-4.16.0.dist-info/METAD- │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] │ ATA                                                                              │            │                 │
+[2026-11-10T19:20:29.441Z] ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+[2026-11-10T19:20:29.441Z] │ usr/local/lib/python3.14/site-packages/werkzeug-3.1.9.dist-info/METADATA         │ python-pkg │        0        │
+[2026-11-10T19:20:29.441Z] └──────────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┘
+[2026-11-10T19:20:29.441Z] Legend:
+[2026-11-10T19:20:29.441Z] - '-': Not scanned
+[2026-11-10T19:20:29.441Z] - '0': Clean (no security findings detected)
+[2026-11-10T19:20:29.441Z] 
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publish to Docker Hub)
+[Pipeline] withCredentials
+[2026-11-10T19:20:29.555Z] Masking supported pattern matches of $DOCKERHUB_TOKEN
+[Pipeline] {
+[Pipeline] sh
+[2026-11-10T19:20:29.834Z] + set +x
+[2026-11-10T19:20:31.696Z] 
+[2026-11-10T19:20:31.696Z] WARNING! Your credentials are stored unencrypted in '/tmp/tmp.l1urI4qRym/config.json'.
+[2026-11-10T19:20:31.696Z] Configure a credential helper to remove this warning. See
+[2026-11-10T19:20:31.696Z] https://docs.docker.com/go/credential-store/
+[2026-11-10T19:20:31.696Z] 
+[2026-11-10T19:20:31.696Z] Login Succeeded
+[2026-11-10T19:20:31.696Z] The push refers to repository [docker.io/yogramming/roomops]
+[2026-11-10T19:20:32.608Z] ae9cb0d2e666: Preparing
+[2026-11-10T19:20:32.608Z] 6bf1c7e1adda: Preparing
+[2026-11-10T19:20:32.608Z] 183df8558e29: Preparing
+[2026-11-10T19:20:32.608Z] e6e4abe002b5: Preparing
+[2026-11-10T19:20:32.608Z] c13e973bc11a: Preparing
+[2026-11-10T19:20:32.608Z] 78c2432481be: Preparing
+[2026-11-10T19:20:32.608Z] 8c427e6f5f3e: Preparing
+[2026-11-10T19:20:32.608Z] b0b55f2a8840: Preparing
+[2026-11-10T19:20:32.608Z] 511f307c4608: Preparing
+[2026-11-10T19:20:32.608Z] 0bcacbf84c88: Preparing
+[2026-11-10T19:20:32.608Z] b5dcc768f696: Preparing
+[2026-11-10T19:20:32.608Z] 8256dc95c326: Preparing
+[2026-11-10T19:20:32.608Z] 09fca8b1de08: Preparing
+[2026-11-10T19:20:32.608Z] 1d7b9dd8778e: Preparing
+[2026-11-10T19:20:32.608Z] 0bcacbf84c88: Waiting
+[2026-11-10T19:20:32.608Z] 8256dc95c326: Waiting
+[2026-11-10T19:20:32.608Z] 09fca8b1de08: Waiting
+[2026-11-10T19:20:32.608Z] 78c2432481be: Waiting
+[2026-11-10T19:20:32.608Z] b5dcc768f696: Waiting
+[2026-11-10T19:20:32.608Z] 1d7b9dd8778e: Waiting
+[2026-11-10T19:20:32.608Z] 8c427e6f5f3e: Waiting
+[2026-11-10T19:20:32.608Z] b0b55f2a8840: Waiting
+[2026-11-10T19:20:32.608Z] 511f307c4608: Waiting
+[2026-11-10T19:20:35.836Z] 183df8558e29: Pushed
+[2026-11-10T19:20:35.836Z] e6e4abe002b5: Pushed
+[2026-11-10T19:20:35.836Z] 6bf1c7e1adda: Pushed
+[2026-11-10T19:20:35.836Z] ae9cb0d2e666: Pushed
+[2026-11-10T19:20:36.087Z] c13e973bc11a: Pushed
+[2026-11-10T19:20:36.087Z] 511f307c4608: Layer already exists
+[2026-11-10T19:20:36.337Z] 0bcacbf84c88: Layer already exists
+[2026-11-10T19:20:36.588Z] b5dcc768f696: Layer already exists
+[2026-11-10T19:20:36.838Z] 8256dc95c326: Layer already exists
+[2026-11-10T19:20:36.838Z] 09fca8b1de08: Layer already exists
+[2026-11-10T19:20:37.089Z] 1d7b9dd8778e: Layer already exists
+[2026-11-10T19:20:38.432Z] 8c427e6f5f3e: Pushed
+[2026-11-10T19:20:38.683Z] b0b55f2a8840: Pushed
+[2026-11-10T19:20:50.781Z] 78c2432481be: Pushed
+[2026-11-10T19:20:54.010Z] e401158e7cfb: digest: sha256:78996b0b7fa6d8217e572fde980203cd47a4fa5dbb3357ca7004c83e1863ef51 size: 3241
+[2026-11-10T19:20:54.010Z] The push refers to repository [docker.io/yogramming/roomops]
+[2026-11-10T19:20:54.561Z] ae9cb0d2e666: Preparing
+[2026-11-10T19:20:54.561Z] 6bf1c7e1adda: Preparing
+[2026-11-10T19:20:54.561Z] 183df8558e29: Preparing
+[2026-11-10T19:20:54.561Z] e6e4abe002b5: Preparing
+[2026-11-10T19:20:54.561Z] c13e973bc11a: Preparing
+[2026-11-10T19:20:54.561Z] 78c2432481be: Preparing
+[2026-11-10T19:20:54.561Z] 8c427e6f5f3e: Preparing
+[2026-11-10T19:20:54.561Z] b0b55f2a8840: Preparing
+[2026-11-10T19:20:54.561Z] 78c2432481be: Waiting
+[2026-11-10T19:20:54.561Z] 511f307c4608: Preparing
+[2026-11-10T19:20:54.561Z] 0bcacbf84c88: Preparing
+[2026-11-10T19:20:54.561Z] b5dcc768f696: Preparing
+[2026-11-10T19:20:54.561Z] 8256dc95c326: Preparing
+[2026-11-10T19:20:54.561Z] 09fca8b1de08: Preparing
+[2026-11-10T19:20:54.561Z] 1d7b9dd8778e: Preparing
+[2026-11-10T19:20:54.561Z] 0bcacbf84c88: Waiting
+[2026-11-10T19:20:54.561Z] 8c427e6f5f3e: Waiting
+[2026-11-10T19:20:54.561Z] b5dcc768f696: Waiting
+[2026-11-10T19:20:54.561Z] 8256dc95c326: Waiting
+[2026-11-10T19:20:54.561Z] 09fca8b1de08: Waiting
+[2026-11-10T19:20:54.561Z] 1d7b9dd8778e: Waiting
+[2026-11-10T19:20:54.561Z] b0b55f2a8840: Waiting
+[2026-11-10T19:20:54.561Z] 511f307c4608: Waiting
+[2026-11-10T19:20:55.472Z] 6bf1c7e1adda: Layer already exists
+[2026-11-10T19:20:55.723Z] e6e4abe002b5: Layer already exists
+[2026-11-10T19:20:55.973Z] 183df8558e29: Layer already exists
+[2026-11-10T19:20:55.973Z] ae9cb0d2e666: Layer already exists
+[2026-11-10T19:20:55.973Z] 8c427e6f5f3e: Layer already exists
+[2026-11-10T19:20:55.973Z] 78c2432481be: Layer already exists
+[2026-11-10T19:20:55.973Z] c13e973bc11a: Layer already exists
+[2026-11-10T19:20:56.224Z] 8256dc95c326: Layer already exists
+[2026-11-10T19:20:56.224Z] 0bcacbf84c88: Layer already exists
+[2026-11-10T19:20:56.224Z] 511f307c4608: Layer already exists
+[2026-11-10T19:20:56.224Z] b5dcc768f696: Layer already exists
+[2026-11-10T19:20:56.224Z] b0b55f2a8840: Layer already exists
+[2026-11-10T19:20:56.775Z] 09fca8b1de08: Layer already exists
+[2026-11-10T19:20:56.775Z] 1d7b9dd8778e: Layer already exists
+[2026-11-10T19:20:59.258Z] latest: digest: sha256:78996b0b7fa6d8217e572fde980203cd47a4fa5dbb3357ca7004c83e1863ef51 size: 3241
+[2026-11-10T19:20:59.258Z] Successfully published yogramming/roomops:e401158e7cfb
+[2026-11-10T19:20:59.258Z] Successfully published yogramming/roomops:latest
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-11-10T19:20:59.655Z] + docker rm -f roomops-ci-postgres-7
+[2026-11-10T19:20:59.906Z] roomops-ci-postgres-7
+[2026-11-10T19:20:59.906Z] + rm -rf .ci-venv /var/lib/jenkins/workspace/RoomOps-CI/.prometheus-multiproc
+[Pipeline] echo
+[2026-11-10T19:20:59.937Z] RoomOps CI pipeline completed successfully.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

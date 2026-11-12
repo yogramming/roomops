@@ -1,12 +1,13 @@
 from datetime import date
 from uuid import uuid4
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, current_app
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 
 from app.extensions import db
 from app.models import Reservation, Room
+
 
 reservations_bp = Blueprint("reservations", __name__)
 
@@ -110,6 +111,7 @@ def create_reservation():
         ), 409
 
     except SQLAlchemyError:
+        current_app.logger.exception("Reservation database error")
         db.session.rollback()
 
         return jsonify(
