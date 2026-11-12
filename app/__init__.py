@@ -38,7 +38,7 @@ def create_app(config_class=Config):
     app.before_request(start_timer)
     app.after_request(record_request)
     register_error_handlers(app)
-    log_level = app.config.get("LOG_LEVE", "INFO")
+    log_level = app.config.get("LOG_LEVEL", "INFO")
     app.logger.setLevel(getattr(logging, log_level, logging.INFO))
 
     return app
